@@ -1,5 +1,5 @@
-// import { link } from "fs";
-// import {link} from "fs";
+// import { link} from "fs";
+// import {link} from "fs/promises";
 
 export const navItems = [
   { name: "About", link: "#about" },
@@ -119,62 +119,7 @@ export const projects = [
   },
 ];
 
-// export const testimonials = [
-//   {
-//     quote:
-//       "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-//     name: "Michael Johnson",
-//     title: "Director of AlphaStream Technologies",
-//   },
-//   {
-//     quote:
-//       "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-//     name: "Michael Johnson",
-//     title: "Director of AlphaStream Technologies",
-//   },
-//   {
-//     quote:
-//       "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-//     name: "Michael Johnson",
-//     title: "Director of AlphaStream Technologies",
-//   },
-//   {
-//     quote:
-//       "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-//     name: "Michael Johnson",
-//     title: "Director of AlphaStream Technologies",
-//   },
-//   {
-//     quote:
-//       "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-//     name: "Michael Johnson",
-//     title: "Director of AlphaStream Technologies",
-//   },
-// ];
 
-// export const testimonials = [
-//   {
-//     // quote: "This is a testimonial quote.",
-//     // name: "John Doe",
-//     // title: "Software Engineer",
-//     // image: "/docker.svg", // Skill image
-//     name: "cloudinary",
-//     img: "/cloud.svg",
-//     // nameImg: "/cloudName.svg",
-//   },
-//   {
-//     quote: "Another testimonial quote.",
-//     name: "Jane Smith",
-//     title: "Frontend Developer",
-//     image: "/skills/react.png", // Skill image
-//   },
-//   {
-//     quote: "Yet another testimonial.",
-//     name: "Sam Wilson",
-//     title: "Backend Developer",
-//     image: "/skills/nodejs.png", // Skill image
-//   },
-// ];
 export const testimonials = [
   {
     quote:
