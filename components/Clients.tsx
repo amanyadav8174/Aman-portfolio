@@ -52,7 +52,87 @@
 // export default Clients;
 // "use client";
 
+// import React from "react";
+
+// import { companies, testimonials } from "@/data";
+// import { InfiniteMovingCards } from "./ui/InfiniteCards";
+
+// const Clients = () => {
+//   return (
+//     <section id="testimonials" className="py-20">
+//       <h1 className="heading">
+//         MY Tech 
+//         <span className="text-purple"> Skills </span>
+//       </h1>
+
+//       <div className="flex flex-col items-center max-lg:mt-10">
+//         {/* Testimonial moving cards */}
+//         <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased items-center justify-center relative overflow-hidden">
+//           {/* <InfiniteMovingCards
+//             items={testimonials}
+//             direction="right"
+//             speed="slow"
+//           /> */}
+//           {/* <InfiniteMovingCards
+//             items={[
+//               { src: "./", alt: "JavaScript" },
+//               { src: "/skills/react.png", alt: "React" },
+//               { src: "/skills/nodejs.png", alt: "Node.js" },
+//               { src: "/skills/html5.png", alt: "HTML5" },
+//               { src: "/skills/css3.png", alt: "CSS3" },
+//             ]}
+//             direction="left"
+//             speed="normal"
+//             pauseOnHover={true}
+//           /> */}
+//           {/* <InfiniteMovingCards
+//             items={testimonials}
+//             direction="right"
+//             speed="slow"
+//             pauseOnHover={true}
+//           /> */}
+//           <InfiniteMovingCards
+//             items={testimonials}
+//             direction="right"
+//             speed="slow"
+//             pauseOnHover={true}
+//           />
+//         </div>
+
+//         {/* Company logos with hover effect */}
+//         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 max-lg:mt-10">
+//           {companies.map((company) => (
+//             <React.Fragment key={company.id}>
+//               <div className="flex flex-col items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:shadow-lg p-2">
+//                 {/* Company Logo */}
+//                 <img
+//                   src={company.img}
+//                   alt={company.name}
+//                   className="md:w-10 w-8 object-contain"
+//                 />
+//                 {/* Company Name */}
+//                 <img
+//                   src={company.nameImg}
+//                   alt={company.name}
+//                   width={company.id === 4 || company.id === 5 ? 100 : 150}
+//                   className="md:w-24 w-20 object-contain mt-2"
+//                 />
+//               </div>
+//             </React.Fragment>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Clients;
+
+
+
+
 import React from "react";
+import Image from "next/image"; // Import Image from next/image
 
 import { companies, testimonials } from "@/data";
 import { InfiniteMovingCards } from "./ui/InfiniteCards";
@@ -68,29 +148,6 @@ const Clients = () => {
       <div className="flex flex-col items-center max-lg:mt-10">
         {/* Testimonial moving cards */}
         <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased items-center justify-center relative overflow-hidden">
-          {/* <InfiniteMovingCards
-            items={testimonials}
-            direction="right"
-            speed="slow"
-          /> */}
-          {/* <InfiniteMovingCards
-            items={[
-              { src: "./", alt: "JavaScript" },
-              { src: "/skills/react.png", alt: "React" },
-              { src: "/skills/nodejs.png", alt: "Node.js" },
-              { src: "/skills/html5.png", alt: "HTML5" },
-              { src: "/skills/css3.png", alt: "CSS3" },
-            ]}
-            direction="left"
-            speed="normal"
-            pauseOnHover={true}
-          /> */}
-          {/* <InfiniteMovingCards
-            items={testimonials}
-            direction="right"
-            speed="slow"
-            pauseOnHover={true}
-          /> */}
           <InfiniteMovingCards
             items={testimonials}
             direction="right"
@@ -105,16 +162,19 @@ const Clients = () => {
             <React.Fragment key={company.id}>
               <div className="flex flex-col items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:shadow-lg p-2">
                 {/* Company Logo */}
-                <img
+                <Image
                   src={company.img}
                   alt={company.name}
+                  width={100} // Specify width here
+                  height={100} // Specify height here
                   className="md:w-10 w-8 object-contain"
                 />
                 {/* Company Name */}
-                <img
+                <Image
                   src={company.nameImg}
                   alt={company.name}
-                  width={company.id === 4 || company.id === 5 ? 100 : 150}
+                  width={company.id === 4 || company.id === 5 ? 100 : 150} // Conditional width
+                  height={company.id === 4 || company.id === 5 ? 50 : 80} // Conditional height
                   className="md:w-24 w-20 object-contain mt-2"
                 />
               </div>
@@ -127,5 +187,3 @@ const Clients = () => {
 };
 
 export default Clients;
-
-
