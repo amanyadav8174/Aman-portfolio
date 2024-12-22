@@ -50,7 +50,7 @@
 // };
 
 // export default Clients;
-"use client";
+// "use client";
 
 import React from "react";
 
