@@ -99,7 +99,9 @@ const Footer = () => {
               rel="noopener noreferrer" // Security attributes
               className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
             >
-              <img src={info.img} alt={info.name} width={20} height={20} />
+              {/* // eslint-disable-next-line @next/next/no-img-element */}
+
+              <img src={info.img} alt={info.link} width={20} height={20} />
             </a>
           ))}
         </div>
