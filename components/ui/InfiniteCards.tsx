@@ -395,10 +395,151 @@
 // };
 
 
+// "use client";
+
+// import { cn } from "@/lib/utils";
+// import React, { useEffect, useState } from "react";
+
+// export const InfiniteMovingCards = ({
+//   items,
+//   direction = "left",
+//   speed = "fast",
+//   pauseOnHover = true,
+//   className,
+// }: {
+//   items: {
+//     quote: string;
+//     name: string;
+//     title: string;
+//     image: string; // Include the image in the item structure
+//   }[];
+//   direction?: "left" | "right";
+//   speed?: "fast" | "normal" | "slow";
+//   pauseOnHover?: boolean;
+//   className?: string;
+// }) => {
+//   const containerRef = React.useRef<HTMLDivElement>(null);
+//   const scrollerRef = React.useRef<HTMLUListElement>(null);
+
+//   useEffect(() => {
+//     addAnimation();
+//   }, []);
+
+//   const [start, setStart] = useState(false);
+
+//   function addAnimation() {
+//     if (containerRef.current && scrollerRef.current) {
+//       const scrollerContent = Array.from(scrollerRef.current.children);
+
+//       scrollerContent.forEach((item) => {
+//         const duplicatedItem = item.cloneNode(true);
+//         if (scrollerRef.current) {
+//           scrollerRef.current.appendChild(duplicatedItem);
+//         }
+//       });
+
+//       getDirection();
+//       getSpeed();
+//       setStart(true);
+//     }
+//   }
+
+//   const getDirection = () => {
+//     if (containerRef.current) {
+//       if (direction === "left") {
+//         containerRef.current.style.setProperty(
+//           "--animation-direction",
+//           "forwards"
+//         );
+//       } else {
+//         containerRef.current.style.setProperty(
+//           "--animation-direction",
+//           "reverse"
+//         );
+//       }
+//     }
+//   };
+
+//   const getSpeed = () => {
+//     if (containerRef.current) {
+//       if (speed === "fast") {
+//         containerRef.current.style.setProperty("--animation-duration", "20s");
+//       } else if (speed === "normal") {
+//         containerRef.current.style.setProperty("--animation-duration", "40s");
+//       } else {
+//         containerRef.current.style.setProperty("--animation-duration", "80s");
+//       }
+//     }
+//   };
+
+//   return (
+//     <div
+//       ref={containerRef}
+//       className={cn(
+//         "scroller relative z-20 w-screen overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+//         className
+//       )}
+//     >
+//       <ul
+//         ref={scrollerRef}
+//         className={cn(
+//           "flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap",
+//           start && "animate-scroll",
+//           pauseOnHover && "hover:[animation-play-state:paused]"
+//         )}
+//       >
+//         {items.map((item, idx) => (
+//           <li
+//             key={idx}
+//             className="w-[90vw] max-w-full relative flex-shrink-0 p-5 md:w-[60vw]"
+//             style={{
+//               background: "rgb(4,7,29)",
+//               backgroundColor:
+//                 "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
+//               borderRadius: "1rem",
+//               border: "1px solid rgba(255,255,255,0.1)",
+//               display: "flex",
+//               flexDirection: "column",
+//               justifyContent: "center",
+//               alignItems: "center",
+//             }}
+//           >
+//             {/* Render the skill image */}
+//             <img
+//               src={item.image}
+//               alt={`${item.name} logo`}
+//               className="max-w-[100px] max-h-[100px] object-contain mb-4 rounded-full"
+//             />
+
+//             {/* Render the testimonial content */}
+//             <blockquote className="text-center">
+//               <span className="relative z-20 text-sm md:text-lg leading-[1.6] text-white font-normal">
+//                 {item.quote}
+//               </span>
+//               <div className="relative z-20 mt-6 flex flex-col items-center">
+//                 <span className="text-xl font-bold leading-[1.6] text-white">
+//                   {item.name}
+//                 </span>
+//                 <span className="text-sm leading-[1.6] text-white-200 font-normal">
+//                   {item.title}
+//                 </span>
+//               </div>
+//             </blockquote>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+
+
+
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 
 export const InfiniteMovingCards = ({
   items,
@@ -420,14 +561,26 @@ export const InfiniteMovingCards = ({
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    addAnimation();
-  }, []);
-
   const [start, setStart] = useState(false);
+ 
+  const getDirection = useCallback(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        direction === "left" ? "forwards" : "reverse"
+      );
+    }
+  }, [direction]);
 
-  function addAnimation() {
+  const getSpeed = useCallback(() => {
+    if (containerRef.current) {
+      const duration =
+        speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
+      containerRef.current.style.setProperty("--animation-duration", duration);
+    }
+  }, [speed]);
+
+  const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
@@ -442,35 +595,11 @@ export const InfiniteMovingCards = ({
       getSpeed();
       setStart(true);
     }
-  }
+  }, [getDirection, getSpeed]);
 
-  const getDirection = () => {
-    if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards"
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse"
-        );
-      }
-    }
-  };
-
-  const getSpeed = () => {
-    if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
-    }
-  };
+  useEffect(() => {
+    addAnimation();
+  }, [addAnimation]);
 
   return (
     <div
@@ -504,11 +633,13 @@ export const InfiniteMovingCards = ({
               alignItems: "center",
             }}
           >
-            {/* Render the skill image */}
-            <img
+            {/* Render the skill image with next/image */}
+            <Image
               src={item.image}
               alt={`${item.name} logo`}
-              className="max-w-[100px] max-h-[100px] object-contain mb-4 rounded-full"
+              width={100}
+              height={100}
+              className="object-contain mb-4 rounded-full"
             />
 
             {/* Render the testimonial content */}

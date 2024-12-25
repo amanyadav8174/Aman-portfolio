@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { cn } from "@/lib/utils";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 // import { AnyARecord } from "dns";
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
+
 export const CanvasRevealEffect = ({
   animationSpeed = 0.4,
   opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
@@ -121,7 +123,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
   return (
     <Shader
       source={`
-        precision medium float;
+        precision mediump float;
         in vec2 fragCoord;
 
         uniform float u_time;
@@ -133,7 +135,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
         out vec4 fragColor;
         float PHI = 1.61803398874989484820459;
         float random(vec2 xy) {
-            return fact(tan(distance(xy * PHI, xy) * 0.5) * xy.x);
+            return fract(tan(distance(xy * PHI, xy) * 0.5) * xy.x);
         }
         float map(float value, float min1, float max1, float min2, float max2) {
             return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -203,7 +205,7 @@ const ShaderMaterial = ({
     }
     lastFrameTime = timestamp;
 
-    const material: any  = ref.current.material;
+    // const material: any = ref.current.material;
     const timeLocation = material.uniforms.u_time;
     timeLocation.value = timestamp;
   });
@@ -255,31 +257,62 @@ const ShaderMaterial = ({
   };
 
   // Shader material
-  const material = useMemo(() => {
-    const materialObject = new THREE.ShaderMaterial({
-      vertexShader: `
-      precision mediump float;
-      in vec2 coordinates;
-      uniform vec2 u_resolution;
-      out vec2 fragCoord;
-      void main(){
-        float x = position.x;
-        float y = position.y;
-        gl_Position = vec4(x, y, 0.0, 1.0);
-        fragCoord = (position.xy + vec2(1.0)) * 0.5 * u_resolution;
-        fragCoord.y = u_resolution.y - fragCoord.y;
-      }
-      `,
-      fragmentShader: source,
-      uniforms: getUniforms(),
-      glslVersion: THREE.GLSL3,
-      blending: THREE.CustomBlending,
-      blendSrc: THREE.SrcAlphaFactor,
-      blendDst: THREE.OneFactor,
-    });
+  // const material = useMemo(() => {
+  //   const materialObject = new THREE.ShaderMaterial({
+  //     vertexShader: `
+  //     precision mediump float;
+  //     in vec2 coordinates;
+  //     uniform vec2 u_resolution;
+  //     out vec2 fragCoord;
+  //     void main(){
+  //       float x = position.x;
+  //       float y = position.y;
+  //       gl_Position = vec4(x, y, 0.0, 1.0);
+  //       fragCoord = (position.xy + vec2(1.0)) * 0.5 * u_resolution;
+  //       fragCoord.y = u_resolution.y - fragCoord.y;
+  //     }
+  //     `,
+  //     fragmentShader: source,
+  //     uniforms: getUniforms(),
+  //     glslVersion: THREE.GLSL3,
+  //     blending: THREE.CustomBlending,
+  //     blendSrc: THREE.SrcAlphaFactor,
+  //     blendDst: THREE.OneFactor,
+  //   });
 
-    return materialObject;
-  }, [size.width, size.height, source]);
+  //   return materialObject;
+  // }, [size.width, size.height, source]);
+  const material = useMemo(() => {
+  // Ensure size and source are defined
+  // const width = size?.width || 1; // Fallback to 1 if size.width is undefined
+  // const height = size?.height || 1; // Fallback to 1 if size.height is undefined
+  const shaderSource = source || `void main() { gl_FragColor = vec4(1.0); }`; // Fallback shader
+
+  const materialObject = new THREE.ShaderMaterial({
+    vertexShader: `
+    precision mediump float;
+    in vec2 coordinates;
+    uniform vec2 u_resolution;
+    out vec2 fragCoord;
+    void main(){
+      float x = position.x;
+      float y = position.y;
+      gl_Position = vec4(x, y, 0.0, 1.0);
+      fragCoord = (position.xy + vec2(1.0)) * 0.5 * u_resolution;
+      fragCoord.y = u_resolution.y - fragCoord.y;
+    }
+    `,
+    fragmentShader: shaderSource,
+    uniforms: getUniforms(),
+    glslVersion: THREE.GLSL3,
+    blending: THREE.CustomBlending,
+    blendSrc: THREE.SrcAlphaFactor,
+    blendDst: THREE.OneFactor,
+  });
+
+  return materialObject;
+}, [size?.width, size?.height, source]);
+
 
   return (
     <mesh ref={ref as any}>
@@ -306,3 +339,4 @@ interface ShaderProps {
   };
   maxFps?: number;
 }
+
