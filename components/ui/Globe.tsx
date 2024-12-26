@@ -1011,7 +1011,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       _buildData();
       _buildMaterial();
     }
-  },);
+  },[globeRef.current]);
   // [globeRef.current]
 
   const _buildMaterial = () => {
@@ -1082,7 +1082,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
         
       startAnimation();
     }
-  }, );
+  },[globeData] );
   // [globeData]
 
   const startAnimation = () => {
@@ -1146,7 +1146,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     return () => {
       clearInterval(interval);
     };
-  }, );
+  }, [globeRef.current, globeData]);
   // [globeRef.current, globeData]
 
   return (
