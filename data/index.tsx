@@ -104,7 +104,7 @@ export const projects = [
   {
     id: 3,
     title: "Portfolio - with nextJS ",
-    des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
+    des: "I created a dynamic portfolio website to showcase my skills, projects, and achievements in an engaging and professional manner.",
     img: "/port.png",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
     link: "https://aman-yadav-portfolio-sable.vercel.app/",
@@ -112,10 +112,10 @@ export const projects = [
   {
     id: 4,
     title: "Banking Website ",
-    des: "Banking website With f",
-    img: "/p4.svg",
+    des: "I developed a Banking website using Next.js, combining high performance and modern web practices.",
+    img: "/bank.png",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-    link: "/ui.apple.com",
+    link: "https://bank-gold-pi.vercel.app/",
   },
 ];
 
